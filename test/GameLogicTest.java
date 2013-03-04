@@ -109,14 +109,33 @@ public class GameLogicTest {
         instance.insertCoin(1, 2);
         instance.insertCoin(1, 1);
         assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
-        instance.insertCoin(1, 2);
-        instance.insertCoin(1, 2);
+        instance.insertCoin(2, 2);
+        instance.insertCoin(2, 2);
+        instance.insertCoin(2, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        instance.insertCoin(3, 2);
+        instance.insertCoin(3, 2);
+        instance.insertCoin(3, 2);
+        instance.insertCoin(3, 1);
+        assertEquals(IGameLogic.Winner.PLAYER1, instance.gameFinished());
+        
+        instance.initializeGame(5, 5, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        // Other Diagonal
+        instance.insertCoin(3, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        instance.insertCoin(2, 2);
         instance.insertCoin(2, 1);
         assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
         instance.insertCoin(1, 2);
         instance.insertCoin(1, 2);
-        instance.insertCoin(1, 2);
-        instance.insertCoin(3, 1);
+        instance.insertCoin(1, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        instance.insertCoin(0, 2);
+        instance.insertCoin(0, 2);
+        instance.insertCoin(0, 2);
+        instance.insertCoin(0, 1);
         assertEquals(IGameLogic.Winner.PLAYER1, instance.gameFinished());
         
         instance.initializeGame(5, 5, 1);
@@ -132,7 +151,44 @@ public class GameLogicTest {
         instance.insertCoin(0, 2);
         assertEquals(IGameLogic.Winner.PLAYER2, instance.gameFinished());
         
-        //TODO: Add Tie Detection
+        instance.initializeGame(5, 5, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        // Tie
+        instance.insertCoin(0, 2);
+        instance.insertCoin(1, 1);
+        instance.insertCoin(2, 1);
+        instance.insertCoin(3, 1);
+        instance.insertCoin(4, 2);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        instance.insertCoin(0, 2);
+        instance.insertCoin(1, 1);
+        instance.insertCoin(2, 1);
+        instance.insertCoin(3, 1);
+        instance.insertCoin(4, 2);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        instance.insertCoin(0, 1);
+        instance.insertCoin(1, 2);
+        instance.insertCoin(2, 2);
+        instance.insertCoin(3, 2);
+        instance.insertCoin(4, 1);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        instance.insertCoin(0, 2);
+        instance.insertCoin(1, 1);
+        instance.insertCoin(2, 1);
+        instance.insertCoin(3, 1);
+        instance.insertCoin(4, 2);
+        assertEquals(IGameLogic.Winner.NOT_FINISHED, instance.gameFinished());
+        
+        instance.insertCoin(0, 2);
+        instance.insertCoin(1, 1);
+        instance.insertCoin(2, 1);
+        instance.insertCoin(3, 1);
+        instance.insertCoin(4, 2);
+        assertEquals(IGameLogic.Winner.TIE, instance.gameFinished());
     }
 
     /**
