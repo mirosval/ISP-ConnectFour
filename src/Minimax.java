@@ -1,7 +1,4 @@
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 
@@ -13,7 +10,7 @@ import java.util.TreeMap;
 
 /**
  *
- * @author meosoft
+ * @author Miroslav Zoricak
  */
 public class Minimax {
     public static int decision(Board board, int maxPlayerID) {
@@ -32,7 +29,7 @@ public class Minimax {
     }
     
     public static int maxValue(Board board, int playerID) {
-        if(board.isTerminal()) {
+        if(board.getWinner() != Board.Winner.NOT_FINISHED) {
             return board.getUtility(1);
         }
         
@@ -50,7 +47,7 @@ public class Minimax {
     }
     
     public static int minValue(Board board, int playerID) {
-        if(board.isTerminal()) {
+        if(board.getWinner() != Board.Winner.NOT_FINISHED) {
             return board.getUtility(1);
         }
         

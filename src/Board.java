@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 /**
  *
- * @author meosoft
+ * @author Miroslav Zoricak
  */
 public class Board {
-    public enum Winner {PLAYER1, PLAYER2, TIE}
+    public enum Winner {PLAYER1, PLAYER2, TIE, NOT_FINISHED}
     public enum Tile {EMPTY, PLAYER1, PLAYER2}
     
     private int width = 0;
@@ -133,7 +133,11 @@ public class Board {
             }
         }
         
-        return Winner.TIE;
+        if(isTerminal()) {
+            return Winner.TIE;
+        } else {
+            return Winner.NOT_FINISHED;
+        }
     }
     
     public int getUtility(int playerID) {

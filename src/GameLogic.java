@@ -46,7 +46,9 @@ public class GameLogic implements IGameLogic {
 
     public int decideNextMove() {
         Board boardCopy = new Board(board);
-        int decision = Minimax.decision(boardCopy, playerID);
+        int decision;
+        decision = Minimax.decision(boardCopy, playerID);
+//        decision = ABSearch.ABSearch(board, 5, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID);
         System.out.println("Decision: " + decision);
         board.print();
         return decision;

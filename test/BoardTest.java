@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author meosoft
+ * @author Miroslav Zoricak
  */
 public class BoardTest {
     
@@ -287,7 +287,7 @@ public class BoardTest {
         instance.insert(1, 1);
         instance.insert(2, 2);
         instance.insert(2, 1);
-        instance.print();
+//        instance.print();
         assertEquals(150, instance.getUtility(1));
         
         // * * | | *
@@ -303,7 +303,7 @@ public class BoardTest {
         instance.insert(3, 1);
         instance.insert(4, 2);
         instance.insert(3, 1);
-        instance.print();
+//        instance.print();
         assertEquals(1350, instance.getUtility(1));
     }
 }

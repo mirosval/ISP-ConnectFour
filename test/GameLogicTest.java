@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author meosoft
+ * @author Miroslav Zoricak
  */
 public class GameLogicTest {
     
