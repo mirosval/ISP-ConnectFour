@@ -25,7 +25,7 @@ public class FourConnectGUI extends JComponent implements MouseListener
     private Image 		border_left,border_right,border_top,border_bottom;
     private Image 		corner_left_top, corner_left_bottom,corner_right_top,corner_right_bottom;
     private Image 		redWon, blueWon;
-	
+    
     /**
      * @param player1 The implementation of the game logic for player1, ir null for human
      * @param player2 The implementation of the game logic for player2, ir null for human
@@ -58,7 +58,7 @@ public class FourConnectGUI extends JComponent implements MouseListener
 	this.player2 = player2;
 	winner = IGameLogic.Winner.NOT_FINISHED;
 	playerTurn =1;
-	gameBoard = new int[cols][rows];
+	gameBoard = new int[cols][rows];        
 	this.addMouseListener(this);
     }
 
