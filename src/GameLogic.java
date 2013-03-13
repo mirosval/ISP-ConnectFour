@@ -45,17 +45,18 @@ public class GameLogic implements IGameLogic {
     }
 
     public int decideNextMove() {
-        // Measure Time
-        long startTime = System.currentTimeMillis();
+        
         
         Board boardCopy = new Board(board);
         int decision;
+     // Measure Time
+        long startTime = System.nanoTime();
 //        decision = Minimax.decision(boardCopy, playerID);
         decision = ABSearch.ABSearch(board, 5, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID)[1];
         
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         long elapsed = endTime - startTime;
-        System.out.println("Decision: " + decision + " Took: " + elapsed + "ms");
+        System.out.println("Decision: " + decision + " Took: " + elapsed + "ns");
        
         return decision;
     }  
