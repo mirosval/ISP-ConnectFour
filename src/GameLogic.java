@@ -25,14 +25,12 @@ public class GameLogic implements IGameLogic {
     }
 	
     public Winner gameFinished() {
-        if(board.isTerminal()) {
-            if(board.getWinner() == Board.Winner.PLAYER1) {
-                return IGameLogic.Winner.PLAYER1;
-            } else if(board.getWinner() == Board.Winner.PLAYER2) {
-                return IGameLogic.Winner.PLAYER2;
-            } else {
-                return IGameLogic.Winner.TIE;
-            }
+        if(board.getWinner() == Board.Winner.PLAYER1) {
+            return IGameLogic.Winner.PLAYER1;
+        } else if(board.getWinner() == Board.Winner.PLAYER2) {
+            return IGameLogic.Winner.PLAYER2;
+        } else if(board.getWinner() == Board.Winner.TIE) {
+            return IGameLogic.Winner.TIE;   
         } else {
             return IGameLogic.Winner.NOT_FINISHED;
         }
