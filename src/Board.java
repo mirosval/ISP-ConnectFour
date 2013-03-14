@@ -93,7 +93,7 @@ public class Board {
         for(int i = height - 1; i >= 0; i--) {
             for(int j = 0; j < width; j++) {
                 Tile tile = board[i][j];
-                if(tile == Tile.EMPTY) continue;
+                //if(tile == Tile.EMPTY) continue;
                 
                 // Check row
                 if(j + 3 < width) {

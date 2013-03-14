@@ -82,13 +82,14 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 	/*
 	 * Draws the current game board and shows if someone won.
 	 */
+	String thinkingText = "Calculating...";
 	public void paint(Graphics g) {
 		this.setDoubleBuffered(true);
 		Insets in = getInsets();
 		g.translate(in.left, in.top);
 
-		System.out.println("paint();");
-		String thinkingText = "Calculating...";
+		//System.out.println("paint();");
+		
 		if (isThinking)
 		g.drawChars(thinkingText.toCharArray(), 0, thinkingText.length(), 20,
 				20);
@@ -165,85 +166,96 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 	}
 
 	boolean isThinking = false;
-
+	Component component = this;
 	/*
 	 * When it is the humans turn and he clicks on one of the arrows, the
 	 * corresponding column is chosen and the logic puts a token/coin in the
 	 * column. Then the computer player is prompted to make a move, which is
 	 * done in a new thread.
 	 */
-	public void mouseClicked(MouseEvent ev) {
-		//this.removeMouseListener(this);
-		final MouseEvent e = ev;
-		// if (isThinking) return; // ignore clicks while calculating
-		System.out.println("CLICK");
-		repaint();
-		
-		
-		Thread t = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				if (winner == IGameLogic.Winner.NOT_FINISHED) {
-					int col = -1;
-					isThinking = true;
-					// repaint();
-					System.out.println("thinking");
-					if (playerTurn == 1) {
-						if (player1 == null) {// human
-							col = humanSelectedColumn(e);
-							if (updateBoard(col, 1)) {
-								player2.insertCoin(col, 1);
-								winner = player2.gameFinished();
-								playerTurn = 2;
-								stopThinking("1");
-							}
-						} else {// computer
-							col = player1.decideNextMove();
-							if (updateBoard(col, 1)) {
-								if (player2 != null)
-									player2.insertCoin(col, 1);
-								player1.insertCoin(col, 1);
-								winner = player1.gameFinished();
-								playerTurn = 2;
-								stopThinking("2");
-							} else {
-//								JOptionPane.showMessageDialog(this,
-//										"Player1 chose an invalid move, please debug!",
-//										"Invalid Move", JOptionPane.ERROR_MESSAGE);
-								stopThinking("3");
-							}
+	
+	
+	private class DoGame implements Runnable
+	{
+		MouseEvent e = null;
+		public DoGame(MouseEvent e) {
+			this.e = e;
+		}
+
+		@Override
+		public void run() {
+			if (winner == IGameLogic.Winner.NOT_FINISHED) {
+				int col = -1;
+				isThinking = true;
+				// repaint();
+				System.out.println("thinking");
+				if (playerTurn == 1) {
+					if (player1 == null) {// human
+						col = humanSelectedColumn(e);
+						if (updateBoard(col, 1)) {
+							player2.insertCoin(col, 1);
+							winner = player2.gameFinished();
+							playerTurn = 2;
+							stopThinking("1");
+							new Thread(new DoGame(null)).start();
 						}
-					} else {
-						if (player2 == null) {// human
-							col = humanSelectedColumn(e);
-							if (updateBoard(col, 2)) {
+					} else {// computer
+						col = player1.decideNextMove();
+						if (updateBoard(col, 1)) {
+							if (player2 != null)
+								player2.insertCoin(col, 1);
+							player1.insertCoin(col, 1);
+							winner = player1.gameFinished();
+							playerTurn = 2;
+							stopThinking("2");
+						} else {
+							JOptionPane.showMessageDialog(component,
+									"Player1 chose an invalid move, please debug!",
+									"Invalid Move", JOptionPane.ERROR_MESSAGE);
+							stopThinking("3");
+						}
+					}
+				} else {
+					if (player2 == null) {// human
+						col = humanSelectedColumn(e);
+						if (updateBoard(col, 2)) {
+							player1.insertCoin(col, 2);
+							winner = player1.gameFinished();
+							playerTurn = 1;
+							stopThinking("4");
+							new Thread(new DoGame(null)).start();
+						}
+					} else {// computer
+						col = player2.decideNextMove();
+						if (updateBoard(col, 2)) {
+							if (player1 != null)
 								player1.insertCoin(col, 2);
-								winner = player1.gameFinished();
-								playerTurn = 1;
-								stopThinking("4");
-							}
-						} else {// computer
-							col = player2.decideNextMove();
-							if (updateBoard(col, 2)) {
-								if (player1 != null)
-									player1.insertCoin(col, 2);
-								player2.insertCoin(col, 2);
-								winner = player2.gameFinished();
-								playerTurn = 1;
-								stopThinking("5");
-							} else {
-//								JOptionPane.showMessageDialog(this,
-//										"Player2 chose an invalid move, please debug!",
-//										"Invalid Move", JOptionPane.ERROR_MESSAGE);
-								stopThinking("6");
-							}
+							player2.insertCoin(col, 2);
+							winner = player2.gameFinished();
+							playerTurn = 1;
+							stopThinking("5");
+						} else {
+							JOptionPane.showMessageDialog(component,
+									"Player2 chose an invalid move, please debug!",
+									"Invalid Move", JOptionPane.ERROR_MESSAGE);
+							stopThinking("6");
 						}
 					}
 				}
-				
 			}
-		});
+			
+		}
+		
+	}
+	public void mouseClicked(MouseEvent ev) {
+		//this.removeMouseListener(this);
+		final MouseEvent e = ev;
+		System.out.println("CLICK");
+		repaint();
+		
+
+		
+	   Thread t = new Thread(new DoGame(ev));
 		if (!isThinking) t.start();
 		repaint();
 	}
