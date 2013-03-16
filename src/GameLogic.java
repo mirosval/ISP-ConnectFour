@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 
 
 public class GameLogic implements IGameLogic {
@@ -15,6 +14,7 @@ public class GameLogic implements IGameLogic {
         //TODO Write your implementation for this method
     }
 	
+    @Override
     public void initializeGame(int width, int height, int playerID) {
         this.width = width;
         this.height = height;
@@ -24,6 +24,7 @@ public class GameLogic implements IGameLogic {
         board.initBoard(width, height);
     }
 	
+    @Override
     public Winner gameFinished() {
         if(board.getWinner() == Board.Winner.PLAYER1) {
             return IGameLogic.Winner.PLAYER1;
@@ -37,11 +38,13 @@ public class GameLogic implements IGameLogic {
     }
 
 
+    @Override
     public void insertCoin(int column, int playerID) {
         System.out.println("Insert: " + column + " Player: " + playerID);
         board.insert(column, playerID);
     }
 
+    @Override
     public int decideNextMove() {
         Board boardCopy = new Board(board);
         int decision;
