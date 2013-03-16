@@ -14,6 +14,7 @@ public class ABSearchDepthCutoff {
     }
     
     private static int[] Search(Board board, int depth, float alpha, float beta, int playerID) {
+//        System.out.println(depth);
         if(depth == 0 || board.isTerminal()) {
             return new int[] {board.getUtility(playerID), -1};
         }
