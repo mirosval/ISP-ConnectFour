@@ -9,7 +9,8 @@
  */
 public class ABSearchDepthCutoff {
     public static int Search(Board board, int depth, int playerID) {
-        return Search(board, 5, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID)[1];
+        int[] result = Search(board, depth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID);
+        return result[1];
     }
     
     private static int[] Search(Board board, int depth, float alpha, float beta, int playerID) {
