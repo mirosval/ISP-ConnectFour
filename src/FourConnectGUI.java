@@ -83,16 +83,17 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 	 * Draws the current game board and shows if someone won.
 	 */
 	String thinkingText = "Calculating...";
+
 	public void paint(Graphics g) {
 		this.setDoubleBuffered(true);
 		Insets in = getInsets();
 		g.translate(in.left, in.top);
 
-		//System.out.println("paint();");
-		
+		// System.out.println("paint();");
+
 		if (isThinking)
-		g.drawChars(thinkingText.toCharArray(), 0, thinkingText.length(), 20,
-				20);
+			g.drawChars(thinkingText.toCharArray(), 0, thinkingText.length(),
+					20, 20);
 		// int[][] gameboard = logic.getGameBoard();
 		int cols = gameBoard.length;
 		int rows = gameBoard[0].length;
@@ -140,8 +141,7 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 					chosenColumn = x;
 				}
 			}
-		}
-		else {
+		} else {
 			chosenColumn = -1;
 		}
 		return chosenColumn;
@@ -163,24 +163,24 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 
 	private void stopThinking(String place) {
 		isThinking = false;
-		//this.addMouseListener(this);
+		// this.addMouseListener(this);
 		System.out.println("done thinking: " + place);
 		repaint();
 	}
 
 	boolean isThinking = false;
 	Component component = this;
+
 	/*
 	 * When it is the humans turn and he clicks on one of the arrows, the
 	 * corresponding column is chosen and the logic puts a token/coin in the
 	 * column. Then the computer player is prompted to make a move, which is
 	 * done in a new thread.
 	 */
-	
-	
-	private class DoGame implements Runnable
-	{
+
+	private class DoGame implements Runnable {
 		MouseEvent e = null;
+
 		public DoGame(MouseEvent e) {
 			this.e = e;
 		}
@@ -202,6 +202,7 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 							stopThinking("1");
 							new Thread(new DoGame(null)).start();
 						}
+						isThinking = false;
 					} else {// computer
 						col = player1.decideNextMove();
 						if (updateBoard(col, 1)) {
@@ -212,9 +213,12 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 							playerTurn = 2;
 							stopThinking("2");
 						} else {
-							JOptionPane.showMessageDialog(component,
-									"Player1 chose an invalid move, please debug!",
-									"Invalid Move", JOptionPane.ERROR_MESSAGE);
+							JOptionPane
+									.showMessageDialog(
+											component,
+											"Player1 chose an invalid move, please debug!",
+											"Invalid Move",
+											JOptionPane.ERROR_MESSAGE);
 							stopThinking("3");
 						}
 					}
@@ -228,6 +232,7 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 							stopThinking("4");
 							new Thread(new DoGame(null)).start();
 						}
+						isThinking = false;
 					} else {// computer
 						col = player2.decideNextMove();
 						if (updateBoard(col, 2)) {
@@ -238,20 +243,24 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 							playerTurn = 1;
 							stopThinking("5");
 						} else {
-							JOptionPane.showMessageDialog(component,
-									"Player2 chose an invalid move, please debug!",
-									"Invalid Move", JOptionPane.ERROR_MESSAGE);
+							JOptionPane
+									.showMessageDialog(
+											component,
+											"Player2 chose an invalid move, please debug!",
+											"Invalid Move",
+											JOptionPane.ERROR_MESSAGE);
 							stopThinking("6");
 						}
 					}
 				}
 			}
-			
+
 		}
-		
+
 	}
+
 	public void mouseClicked(MouseEvent ev) {
-		//this.removeMouseListener(this);
+		// this.removeMouseListener(this);
 		final MouseEvent e = ev;
 		System.out.println("CLICK");
 		repaint();
@@ -263,8 +272,7 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 				}
 			}
 		}
-		
-	   
+
 		if (!isThinking && selected >= 0) {
 			Thread t = new Thread(new DoGame(e));
 			t.start();
