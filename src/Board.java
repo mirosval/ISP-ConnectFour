@@ -1,6 +1,8 @@
 
 import java.util.Arrays;
 
+
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -19,6 +21,8 @@ public class Board {
     
     private Tile[][] board;
     
+    private int lastMove;
+    
     public Board() {
         
     }
@@ -28,6 +32,8 @@ public class Board {
         this.height = b.height;
         
         this.board = new Tile[height][width];
+        
+        this.lastMove = -1;
         
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
@@ -75,6 +81,8 @@ public class Board {
         } else {
             board[i][column] = Tile.PLAYER2;
         }
+        
+        lastMove = i;
     }
     
     public boolean isTerminal() {
@@ -242,6 +250,27 @@ public class Board {
     
     public int getWidth() {
         return width;
+    }
+    
+    public int getLastMove() {
+        return lastMove;
+    }
+    
+    @Override
+    public boolean equals(Object o2) {
+        if(o2.getClass() != this.getClass()) return false;
+        
+        return ((Board)o2).hashCode() == hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + this.width;
+        hash = 17 * hash + this.height;
+        hash = 17 * hash + Arrays.deepHashCode(this.board);
+        hash = 17 * hash + this.lastMove;
+        return hash;
     }
     
     public void print() {

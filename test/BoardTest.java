@@ -305,5 +305,57 @@ public class BoardTest {
         instance.insert(3, 1);
 //        instance.print();
         assertEquals(1350, instance.getPartialUtilityForPlayer(1));
+        
+        // * * | | *
+        // \ | | | /
+        // - + + 1 -
+        // - + 1 1 -
+        // * 1 2 2 2
+//        instance.initBoard(5, 5);
+//        instance.insert(1, 1);
+//        instance.insert(2, 2);
+//        instance.insert(2, 1);
+//        instance.insert(3, 2);
+//        instance.insert(3, 1);
+//        instance.insert(4, 2);
+//        instance.insert(3, 1);
+//        instance.insert(4, 2);
+//        instance.insert(4, 1);
+//        instance.insert(3, 2);
+//        instance.insert(4, 1);
+//        instance.print();
+//        System.out.println(instance.getPartialUtilityForPlayer(1));
+        
+        // * * * * *
+        // * | | | |
+        // 2 | | | |
+        // 2 | | | |
+        // 2 1 1 1 1
+        instance.initBoard(5, 5);
+        instance.insert(1, 1);
+        instance.insert(0, 2);
+        instance.insert(2, 1);
+        instance.insert(0, 2);
+        instance.insert(3, 1);
+        instance.insert(0, 2);
+        instance.insert(4, 1);
+        instance.print();
+        System.out.println(instance.getPartialUtilityForPlayer(1));
+        
+        // * * * * *
+        // 1 - - - -
+        // 1 - - - -
+        // 1 - - - -
+        // 1 2 2 2 *
+        instance.initBoard(5, 5);
+        instance.insert(0, 1);
+        instance.insert(1, 2);
+        instance.insert(0, 1);
+        instance.insert(2, 2);
+        instance.insert(0, 1);
+        instance.insert(3, 2);
+        instance.insert(0, 1);
+        instance.print();
+        System.out.println(instance.getPartialUtilityForPlayer(1));
     }
 }
