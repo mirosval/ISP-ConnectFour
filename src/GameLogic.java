@@ -48,10 +48,12 @@ public class GameLogic implements IGameLogic {
      // Measure Time
         long startTime = System.nanoTime();
 //        decision = Minimax.decision(boardCopy, playerID);
-        decision = ABSearchDepthCutoff.Search(board, 10, playerID);
+        decision = ABSearchDepthCutoff.Search(board, 5, playerID);
         
         long endTime = System.nanoTime();
-        double elapsed = (endTime - startTime) / 10e9;
+        double elapsed = (endTime - startTime)/1000000000.0;
+     
+        
         System.out.format("Decision: %d Took: %.6fs%n", decision, elapsed);
        
         return decision;
