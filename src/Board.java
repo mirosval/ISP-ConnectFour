@@ -82,7 +82,7 @@ public class Board {
             board[i][column] = Tile.PLAYER2;
         }
         
-        lastMove = i;
+        lastMove = column;
     }
     
     public boolean isTerminal() {

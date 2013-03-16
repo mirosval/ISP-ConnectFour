@@ -17,7 +17,7 @@ public class ABSearchDepthCutoffWithOrdering {
 
     public static int Search(Board board, int depth, int playerID, int maxPlayerID) {
         int[] result = Search(board, depth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID, maxPlayerID);
-        System.out.println("Resulting Utility:" + result[0] + " for move: " + result[1]);
+//        System.out.println("Resulting Utility:" + result[0] + " for move: " + result[1]);
         return result[1];
     }
     
@@ -26,10 +26,10 @@ public class ABSearchDepthCutoffWithOrdering {
 //        Board.Winner winner = board.getWinner();
         if(depth == 0 || board.isTerminal()) {
             int utility = board.getTotalUtilityForPlayer(maxPlayerID);
-            if(utility != 0){
-                board.print();
-                System.out.println("Utility: " + utility + " Depth: " + depth);
-            }
+//            if(utility != 0){
+//                board.print();
+//                System.out.println("Utility: " + utility + " Depth: " + depth);
+//            }
             return new int[] {utility, -1};
         }
         int width = board.getWidth();
