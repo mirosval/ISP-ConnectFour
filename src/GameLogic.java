@@ -52,7 +52,7 @@ public class GameLogic implements IGameLogic {
         long startTime = System.nanoTime();
 //        decision = Minimax.decision(boardCopy, playerID);
 //        decision = ABSearchDepthCutoff.Search(board, 10, playerID);
-        decision = ABSearchDepthCutoffWithOrdering.Search(board, 11, playerID);
+        decision = ABSearchDepthCutoffWithOrdering.Search(board, 3, playerID, playerID);
         
         long endTime = System.nanoTime();
         double elapsed = (endTime - startTime) / 1e9;

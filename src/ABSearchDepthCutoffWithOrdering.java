@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.TreeSet;
 
 /**
  *
@@ -14,18 +15,20 @@ public class ABSearchDepthCutoffWithOrdering {
     
 
 
-    public static int Search(Board board, int depth, int playerID) {
-        int[] result = Search(board, depth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID);
+    public static int Search(Board board, int depth, int playerID, int maxPlayerID) {
+        int[] result = Search(board, depth, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID, maxPlayerID);
+        System.out.println("Resulting Utility:" + result[0] + " for move: " + result[1]);
         return result[1];
     }
     
-    private static int[] Search(Board board, int depth, float alpha, float beta, int playerID) {
+    private static int[] Search(Board board, int depth, float alpha, float beta, int playerID, int maxPlayerID) {
 //        System.out.println(playerID);
-        Board.Winner winner = board.getWinner();
-        if(depth == 0 || winner == Board.Winner.TIE) {
-            int utility = board.getTotalUtilityForPlayer(playerID);
+//        Board.Winner winner = board.getWinner();
+        if(depth == 0 || board.isTerminal()) {
+            int utility = board.getTotalUtilityForPlayer(maxPlayerID);
             if(utility != 0){
-//                System.out.println("Utility: " + utility + " Depth: " + depth);
+                board.print();
+                System.out.println("Utility: " + utility + " Depth: " + depth);
             }
             return new int[] {utility, -1};
         }
@@ -35,7 +38,7 @@ public class ABSearchDepthCutoffWithOrdering {
         BoardComparator boardComparator = new BoardComparator();
         
         boardComparator.setPlayerID(playerID);
-        TreeSet<Board> boards = new TreeSet<>(boardComparator);
+        ArrayList<Board> boards = new ArrayList<>();
 
         for(int i = 0; i < width; i++) {
             if(!board.isValidMove(i)) continue;
@@ -46,10 +49,12 @@ public class ABSearchDepthCutoffWithOrdering {
             boards.add(step);
         }
         
-        if(playerID == 1) {
+        Collections.sort(boards, boardComparator);
+        
+        if(playerID == maxPlayerID) {
             for(Board step : boards) {
                 int lastMove = step.getLastMove();
-                int current = Search(step, depth - 1, alpha, beta, 3 - playerID)[0];
+                int current = Search(step, depth - 1, alpha, beta, 3 - playerID, maxPlayerID)[0];
                 
                 if(current > alpha) {
                     alpha = current;
@@ -62,11 +67,12 @@ public class ABSearchDepthCutoffWithOrdering {
             }
             return new int[] {(int)alpha, move};
         } else {
+            Collections.reverse(boards);
             for(Board step : boards) {
                 int lastMove = step.getLastMove();
-                int current = Search(step, depth - 1, alpha, beta, 3 - playerID)[0];
+                int current = Search(step, depth - 1, alpha, beta, 3 - playerID, maxPlayerID)[0];
                 
-                if(current < beta) {
+                if(current <= beta) {
                     beta = current;
                     move = lastMove;
                 }

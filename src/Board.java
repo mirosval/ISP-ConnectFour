@@ -37,7 +37,7 @@ public class Board {
         
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
-                board[i][j] = b.board[i][j];
+                this.board[i][j] = b.board[i][j];
             }
         }
     }
@@ -165,6 +165,10 @@ public class Board {
                 // Check row
                 if(j + 3 < width) {
                     int ours = 0;
+                    if(tile == player) {
+                        ours = 1;
+                    }
+                    
                     for(int k = 1; k <= 3; k++) {
                         if(board[i][j + k] == opponent) {
                             ours = -1;
@@ -183,6 +187,10 @@ public class Board {
                 // Check col
                 if(i + 3 < height) {
                     int ours = 0;
+                    if(tile == player) {
+                        ours = 1;
+                    }
+                    
                     for(int k = 1; k <= 3; k++) {
                         if(board[i + k][j] == opponent) {
                             ours = -1;
@@ -201,6 +209,10 @@ public class Board {
                 // Check diag 1
                 if(i + 3 < height && j + 4 < width) {
                     int ours = 0;
+                    if(tile == player) {
+                        ours = 1;
+                    }
+                    
                     for(int k = 1; k < 4; k++) {
                         if(board[i + k][j + k] == opponent) {
                             ours = -1;
@@ -219,6 +231,10 @@ public class Board {
                 // Check diag 2
                 if(i + 3 < height && j - 3 >= 0) {
                     int ours = 0;
+                    if(tile == player) {
+                        ours = 1;
+                    }
+                    
                     for(int k = 1; k < 4; k++) {
                         if(board[i + k][j - k] == opponent) {
                             ours = -1;
@@ -274,8 +290,8 @@ public class Board {
     }
     
     public void print() {
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
                 if(board[i][j] == Tile.EMPTY) {
                     System.out.print(" * ");
                 } else if(board[i][j] == Tile.PLAYER1) {
