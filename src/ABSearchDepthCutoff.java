@@ -7,8 +7,12 @@
  *
  * @author Miroslav Zoricak
  */
-public class ABSearch {
-    public static int[] ABSearch(Board board, int depth, float alpha, float beta, int playerID) {
+public class ABSearchDepthCutoff {
+    public static int Search(Board board, int depth, int playerID) {
+        return Search(board, 5, Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY, playerID)[1];
+    }
+    
+    private static int[] Search(Board board, int depth, float alpha, float beta, int playerID) {
         if(depth == 0 || board.isTerminal()) {
             return new int[] {board.getUtility(playerID), -1};
         }
@@ -23,7 +27,7 @@ public class ABSearch {
                 
                 Board step = new Board(board);
                 step.insert(i, playerID);
-                int current = ABSearch(step, depth - 1, alpha, beta, 3 - playerID)[0];
+                int current = Search(step, depth - 1, alpha, beta, 3 - playerID)[0];
                 
                 if(current > alpha) {
                     alpha = current;
@@ -41,7 +45,7 @@ public class ABSearch {
                 
                 Board step = new Board(board);
                 step.insert(i, playerID);
-                int current = ABSearch(step, depth - 1, alpha, beta, 3 - playerID)[0];
+                int current = Search(step, depth - 1, alpha, beta, 3 - playerID)[0];
                 
                 if(current < beta) {
                     beta = current;
