@@ -141,6 +141,9 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 				}
 			}
 		}
+		else {
+			chosenColumn = -1;
+		}
 		return chosenColumn;
 	}
 
@@ -252,11 +255,20 @@ public class FourConnectGUI extends JComponent implements MouseListener {
 		final MouseEvent e = ev;
 		System.out.println("CLICK");
 		repaint();
+		int selected = -1;
+		if (e.getY() < 60) {
+			for (int x = 0; x < gameBoard.length; x++) {
+				if (100 + x * 100 <= e.getX() && e.getX() < 100 + (x + 1) * 100) {
+					selected = x;
+				}
+			}
+		}
 		
-
-		
-	   Thread t = new Thread(new DoGame(ev));
-		if (!isThinking) t.start();
+	   
+		if (!isThinking && selected >= 0) {
+			Thread t = new Thread(new DoGame(e));
+			t.start();
+		}
 		repaint();
 	}
 
