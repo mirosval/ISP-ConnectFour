@@ -140,7 +140,11 @@ public class Board {
         }
     }
     
-    public int getUtility(int playerID) {
+    public int getTotalUtilityForPlayer(int playerID) {
+        return getPartialUtilityForPlayer(playerID) - getPartialUtilityForPlayer(3 - playerID);
+    }
+    
+    public int getPartialUtilityForPlayer(int playerID) {
         Tile player = playerID == 1 ? Tile.PLAYER1 : Tile.PLAYER2;
         Tile opponent = playerID == 1 ? Tile.PLAYER2 : Tile.PLAYER2;
         

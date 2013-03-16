@@ -30,7 +30,7 @@ public class Minimax {
     
     public static int maxValue(Board board, int playerID) {
         if(board.getWinner() != Board.Winner.NOT_FINISHED) {
-            return board.getUtility(1);
+            return board.getPartialUtilityForPlayer(1);
         }
         
         float value = Float.NEGATIVE_INFINITY;
@@ -48,7 +48,7 @@ public class Minimax {
     
     public static int minValue(Board board, int playerID) {
         if(board.getWinner() != Board.Winner.NOT_FINISHED) {
-            return board.getUtility(1);
+            return board.getPartialUtilityForPlayer(1);
         }
         
         float value = Float.NEGATIVE_INFINITY;

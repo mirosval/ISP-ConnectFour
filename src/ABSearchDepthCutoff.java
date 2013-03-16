@@ -14,9 +14,14 @@ public class ABSearchDepthCutoff {
     }
     
     private static int[] Search(Board board, int depth, float alpha, float beta, int playerID) {
-//        System.out.println(depth);
-        if(depth == 0 || board.isTerminal()) {
-            return new int[] {board.getUtility(playerID), -1};
+//        System.out.println(playerID);
+        Board.Winner winner = board.getWinner();
+        if(depth == 0 || winner == Board.Winner.TIE) {
+            int utility = board.getTotalUtilityForPlayer(playerID);
+            if(utility != 0){
+//                System.out.println("Utility: " + utility + " Depth: " + depth);
+            }
+            return new int[] {utility, -1};
         }
         
         int width = board.getWidth();

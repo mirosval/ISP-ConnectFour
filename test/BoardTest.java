@@ -242,7 +242,7 @@ public class BoardTest {
         // * * * *
         // * * * *
         instance.initBoard(4, 3);
-        assertEquals(0, instance.getUtility(1));
+        assertEquals(0, instance.getPartialUtilityForPlayer(1));
         
         // * * * * *
         // * | * * /
@@ -252,7 +252,7 @@ public class BoardTest {
         instance.initBoard(5, 5);
         instance.insert(1, 1);
         instance.insert(2, 2);
-        assertEquals(20, instance.getUtility(1));
+        assertEquals(20, instance.getPartialUtilityForPlayer(1));
         
         // * * * * *
         // \ | * | /
@@ -264,7 +264,7 @@ public class BoardTest {
         instance.insert(2, 2);
         instance.insert(3, 1);
         instance.insert(4, 2);
-        assertEquals(40, instance.getUtility(1));
+        assertEquals(40, instance.getPartialUtilityForPlayer(1));
         
         // * | * * /
         // * | * / /
@@ -276,7 +276,7 @@ public class BoardTest {
         instance.insert(2, 2);
         instance.insert(1, 1);
         instance.insert(3, 2);
-        assertEquals(150, instance.getUtility(1));
+        assertEquals(150, instance.getPartialUtilityForPlayer(1));
         
         // * * | * *
         // \ | | * /
@@ -288,7 +288,7 @@ public class BoardTest {
         instance.insert(2, 2);
         instance.insert(2, 1);
 //        instance.print();
-        assertEquals(150, instance.getUtility(1));
+        assertEquals(150, instance.getPartialUtilityForPlayer(1));
         
         // * * | | *
         // \ | | | /
@@ -304,6 +304,6 @@ public class BoardTest {
         instance.insert(4, 2);
         instance.insert(3, 1);
 //        instance.print();
-        assertEquals(1350, instance.getUtility(1));
+        assertEquals(1350, instance.getPartialUtilityForPlayer(1));
     }
 }
