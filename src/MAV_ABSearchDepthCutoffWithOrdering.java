@@ -11,7 +11,7 @@ import java.util.Comparator;
  *
  * @author Miroslav Zoricak
  */
-public class ABSearchDepthCutoffWithOrdering {
+public class MAV_ABSearchDepthCutoffWithOrdering {
     
 
 
